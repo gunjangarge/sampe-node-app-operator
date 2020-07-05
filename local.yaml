@@ -2,4 +2,4 @@
 - version: v1alpha1
   group: samplenodeapp.exampleoperator.com
   kind: SampleNodeApp
-  playbook: /mnt/d/virtualbox-shared/samplenodeapp-operator/playbook.yml
+  playbook: /root/samplenodeapp-operator/playbook.yml
