@@ -1,0 +1,193 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: |-
+      [
+        {
+          "apiVersion": "samplenodeapp.exampleoperator.com/v1alpha1",
+          "kind": "SampleNodeApp",
+          "metadata": {
+            "name": "example-samplenodeapp"
+          },
+          "spec": {
+            "size": 3
+          }
+        }
+      ]
+    capabilities: Basic Install
+    categories: Application Runtime
+    description: Create Sample Node Application
+    support: Gunjan Garge
+    certified: 'false'
+  name: samplenodeapp-operator.v0.0.1
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - kind: SampleNodeApp
+      name: samplenodeapps.samplenodeapp.exampleoperator.com
+      version: v1alpha1
+  description: This is sample node app operator
+  displayName: Sample Node App Operator
+  icon:
+  - base64data: ""
+    mediatype: "image/png"
+  install:
+    spec:
+      deployments:
+      - name: samplenodeapp-operator
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              name: samplenodeapp-operator
+          strategy: {}
+          template:
+            metadata:
+              labels:
+                name: samplenodeapp-operator
+            spec:
+              containers:
+              - env:
+                - name: WATCH_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.annotations['olm.targetNamespaces']
+                - name: POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: OPERATOR_NAME
+                  value: samplenodeapp-operator
+                - name: ANSIBLE_GATHERING
+                  value: explicit
+                image: quay.io/gunjangarge/samplenodeapp:v1
+                imagePullPolicy: IfNotPresent
+                livenessProbe:
+                  httpGet:
+                    path: /healthz
+                    port: 6789
+                  initialDelaySeconds: 5
+                  periodSeconds: 3
+                name: samplenodeapp-operator
+                resources: {}
+                volumeMounts:
+                - mountPath: /tmp/ansible-operator/runner
+                  name: runner
+              serviceAccountName: samplenodeapp-operator
+              volumes:
+              - emptyDir: {}
+                name: runner
+      permissions:
+      - rules:
+        - apiGroups:
+          - ""
+          resources:
+          - pods
+          - services
+          - services/finalizers
+          - endpoints
+          - persistentvolumeclaims
+          - events
+          - configmaps
+          - secrets
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps
+          resources:
+          - deployments
+          - daemonsets
+          - replicasets
+          - statefulsets
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - monitoring.coreos.com
+          resources:
+          - servicemonitors
+          verbs:
+          - get
+          - create
+        - apiGroups:
+          - apps
+          resourceNames:
+          - samplenodeapp-operator
+          resources:
+          - deployments/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - ""
+          resources:
+          - pods
+          verbs:
+          - get
+        - apiGroups:
+          - apps
+          resources:
+          - replicasets
+          - deployments
+          verbs:
+          - get
+        - apiGroups:
+          - samplenodeapp.exampleoperator.com
+          resources:
+          - '*'
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - route.openshift.io
+          resources:
+          - Route
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        serviceAccountName: samplenodeapp-operator
+    strategy: deployment
+  installModes:
+  - supported: true
+    type: OwnNamespace
+  - supported: true
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - sample node app operator
+  links:
+  - name: Samplenodeapp Operator
+    url: https://samplenodeapp-operator.domain
+  maintainers:
+  - email: 'gunjangarge@gmail.com'
+    name: gunjan garge
+  maturity: alpha
+  provider:
+    name: Gunjan Garge
+  version: 0.0.1

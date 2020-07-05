@@ -1,0 +1,5 @@
+---
+- version: v1alpha1
+  group: samplenodeapp.exampleoperator.com
+  kind: SampleNodeApp
+  playbook: playbook.yml

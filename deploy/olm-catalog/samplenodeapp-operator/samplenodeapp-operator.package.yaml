@@ -1,0 +1,5 @@
+channels:
+- currentCSV: samplenodeapp-operator.v0.0.1
+  name: alpha
+defaultChannel: alpha
+packageName: samplenodeapp-operator

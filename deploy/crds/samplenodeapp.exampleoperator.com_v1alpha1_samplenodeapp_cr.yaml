@@ -1,0 +1,7 @@
+apiVersion: samplenodeapp.exampleoperator.com/v1alpha1
+kind: SampleNodeApp
+metadata:
+  name: example-samplenodeapp
+spec:
+  # Add fields here
+  size: 3

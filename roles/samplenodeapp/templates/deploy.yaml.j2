@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: samplenodeapp
+  name: {{meta.name}}
+  namespace: {{meta.namespace}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: samplenodeapp
+  template:
+    metadata:
+      labels:
+        app: samplenodeapp
+    spec:
+      containers:
+      - image: quay.io/gunjangarge/sample-node-app:v1
+        imagePullPolicy: IfNotPresent
+        name: sample-node-app
