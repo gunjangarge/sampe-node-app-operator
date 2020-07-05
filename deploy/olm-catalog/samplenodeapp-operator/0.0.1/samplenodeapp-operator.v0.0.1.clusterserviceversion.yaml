@@ -29,6 +29,8 @@ spec:
     - kind: SampleNodeApp
       name: samplenodeapps.samplenodeapp.exampleoperator.com
       version: v1alpha1
+      description: Represents a resource for managing sample node app
+      displayName: Sample Node App
   description: This is sample node app operator
   displayName: Sample Node App Operator
   icon:
