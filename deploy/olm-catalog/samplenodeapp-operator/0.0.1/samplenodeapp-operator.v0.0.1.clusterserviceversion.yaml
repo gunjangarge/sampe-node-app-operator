@@ -19,6 +19,7 @@ metadata:
     categories: Application Runtime
     description: Create Sample Node Application
     repository: https://github.com/gunjangarge/sample-node-app-operator
+    containerImage: quay.io/gunjangarge/sample-node-app-operator:v1
     support: Gunjan Garge
     certified: 'false'
   name: samplenodeapp-operator.v0.0.1
