@@ -17,7 +17,7 @@ spec:
       containers:
         - name: samplenodeapp-operator
           # Replace this with the built image name
-          image: "samplenodeapp:v1"
+          image: "quay.io/gunjangarge/sample-node-app-operator:v1"
           imagePullPolicy: "IfNotPresent"
           volumeMounts:
           - mountPath: /tmp/ansible-operator/runner
