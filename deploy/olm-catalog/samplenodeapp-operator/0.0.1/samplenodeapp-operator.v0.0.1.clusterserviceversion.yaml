@@ -63,7 +63,7 @@ spec:
                   value: samplenodeapp-operator
                 - name: ANSIBLE_GATHERING
                   value: explicit
-                image: quay.io/gunjangarge/sample-node-app:v1
+                image: quay.io/gunjangarge/sample-node-app-operator:v1
                 imagePullPolicy: IfNotPresent
                 livenessProbe:
                   httpGet:
@@ -183,7 +183,7 @@ spec:
   - sample node app operator
   links:
   - name: Samplenodeapp Operator
-    url: https://github.com/gunjangarge/sampe-node-app-operator
+    url: https://github.com/gunjangarge/sample-node-app-operator
   maintainers:
   - email: 'gunjangarge@gmail.com'
     name: gunjan garge
